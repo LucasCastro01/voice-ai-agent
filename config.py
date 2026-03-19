@@ -29,7 +29,7 @@ def audio_para_texto(caminho_audio):
         transcription = client.audio.transcriptions.create(
             file=file,
             model="whisper-large-v3",
-            language="br"
+            language="pt"
         )
     
     return transcription.text
