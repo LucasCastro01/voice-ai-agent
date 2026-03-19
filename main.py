@@ -18,12 +18,8 @@ elevenlabs = ElevenLabs(api_key=os.getenv("ELEVEN_LABS"))
 ELEVENLABS_SAMPLE_RATE = 16000
 GRACE_PERIOD_MS = 600  # ignora VAD nos primeiros 600ms após o agente começar a falar
 
-# ── Flags compartilhadas entre threads ──────────────────────────────────────
 agente_falando = threading.Event()  # True enquanto o agente está tocando áudio
 parar_player   = threading.Event()  # sinaliza o player para parar
-
-
-# ── Player ───────────────────────────────────────────────────────────────────
 
 def tocar_audio(pcm_bytes: bytes):
     """Toca áudio PCM em chunks de 20ms — para imediatamente se parar_player for setado."""
@@ -50,9 +46,6 @@ def falar(texto: str):
     agente_falando.set()
     tocar_audio(pcm_bytes)
     agente_falando.clear()
-
-
-# ── Pipeline de resposta (roda em thread separada) ───────────────────────────
 
 def processar_fala(audio_fala: bytes):
     caminho_wav = _salvar_wav(audio_fala)
@@ -81,11 +74,8 @@ def _salvar_wav(pcm: bytes) -> str:
         wf.writeframes(pcm)
     return caminho
 
-
-# ── Loop principal ────────────────────────────────────────────────────────────
-
 def main():
-    source = MicrofoneSource()  # ← troca por TwilioSource(ws) no deploy
+    source = MicrofoneSource()
     vad = VADBuffer(sample_rate=SAMPLE_RATE)
     grace_chunks = 0
     grace_iniciado = False

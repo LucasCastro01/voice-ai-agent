@@ -6,7 +6,7 @@ model = load_silero_vad()
 
 SILENCE_THRESHOLD = 0.5   # probabilidade mínima para considerar voz
 SILENCE_DURATION_MS = 800 # ms de silêncio para considerar fim de fala
-CHUNK_MS = 32          # duração de cada chunk do Twilio/microfone
+CHUNK_MS = 32          # duração de cada chunk do microfone
 
 
 def _tem_voz(chunk_pcm: bytes, sample_rate: int) -> bool:

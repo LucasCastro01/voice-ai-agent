@@ -41,12 +41,3 @@ class MicrofoneSource(AudioSource):
 
     def ler_chunk(self) -> bytes | None:
         return self._fila.pop(0) if self._fila else None
-
-
-# --- Para o deploy com Twilio, basta adicionar aqui: ---
-#
-# class TwilioSource(AudioSource):
-#     def __init__(self, websocket): ...
-#     def ler_chunk(self) -> bytes | None:
-#         # lê chunk μ-law do WebSocket e converte para PCM 16-bit
-#         ...
