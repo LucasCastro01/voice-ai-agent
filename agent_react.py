@@ -16,14 +16,15 @@ def init_llm():
     )
 
 @tool
-def consultar_saldo():
+def consultar_pedido():
     """Retorna o saldo de horas do funcionário"""
-    return "Seu saldo de horas é 120 horas positivas."
+    return "Seu pedido de código 1234 está com status de enviado da compra de uma TV LG no nome de Lucas."
 
 agent = create_agent(
     model=init_llm(),
-    tools=[consultar_saldo],
-    checkpointer=InMemorySaver()
+    tools=[consultar_pedido],
+    checkpointer=InMemorySaver(),
+    system_prompt="Você é um assitente de voz que é simpatico e gentil. Responde com textos breves e objetivos."
 )
 
 def perguntar_ia(texto):
